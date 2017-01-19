@@ -9,8 +9,13 @@
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				if((!empty($_POST['email'])) && (!empty($_POST['password']))){
 						if((strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass')){
+								
+								session_start();
+								$_SESSION['email'] = $_POST['email'];
+								$_SESSION['loggedin'] = time();
+								
 								ob_end_clean();
-								header('Location: welcome.php');
+								header('Location: welcome.php');//登录成功后，重新定向到一个页面，使用header函数，需要ob_start()缓					                                                                //冲函数调用在页面最前端
 								exit();
 								
 							} else {   //邮箱密码错误
